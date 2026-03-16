@@ -1,5 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import useSWR from "swr";
 import { Skeleton } from "#/components/ui/skeleton";
 import { supabase } from "#/lib/supabase";
