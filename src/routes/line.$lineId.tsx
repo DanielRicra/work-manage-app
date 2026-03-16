@@ -67,7 +67,7 @@ function RouteComponent() {
 
         <div className="flex justify-between mt-3">
           <h3 className="text-xl font-semibold mt-4">Cortes:</h3>
-          <Link to="/entries/new" className="mt-2">
+          <Link to="/entry/new" className="mt-2">
             <Button>Add New Entry</Button>
           </Link>
         </div>

@@ -5,7 +5,6 @@ import { Skeleton } from "#/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
 import { Field } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import type { Database } from '../../database.types'
 import { supabase } from '../lib/supabase'
@@ -47,20 +46,18 @@ function RouteComponent() {
   })
 
   function calculateMeta() {
-    if (!entryDetails) return;
+    if (!entryDetails) return
 
-    const goalInGarments = Math.floor(metaMins / entryDetails.std_mins);
+    const goalInGarments = Math.ceil(metaMins / entryDetails.std_mins)
+    const goal = (entryDetails.completed_garments ?? 0) + goalInGarments
 
-    // a la catidad total le restamos las prendas confeccionadas, de ahi sumamos las prendas y calculamos en que paquete ce esa catidad, esa sera la meta a alcanzar
-    const goal = goalInGarments + (entryDetails.completed_garments ?? 0);
+    let count = 0
 
-    let count = 0;
     for (const breakdown of entryDetails.packaging_breakdown) {
-      count += breakdown.quantity || 0;
-      console.log(`Count: ${count}, Goal: ${goal}`);
+      count += breakdown.quantity
       if (count >= goal) {
-        setPackageWithMeta(`Debes alcanzar al menos el paquete número ${breakdown.number} (talla ${breakdown.size}) para cumplir tu meta de ${metaMins} minutos (${goalInGarments} prendas).`);
-        return;
+        setPackageWithMeta(`The goal is in the package ${breakdown.number}, size ${breakdown.size}`)
+        return
       }
     }
   }
